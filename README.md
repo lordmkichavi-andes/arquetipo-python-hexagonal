@@ -1,0 +1,1 @@
+# arquetipo-python-hexagonal
