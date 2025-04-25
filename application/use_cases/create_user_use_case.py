@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from domain.entities.user_entity import UserEntity
 from domain.services.user_domain_service import UserDomainService
 from application.ports.user_repository_port import UserRepositoryPort
@@ -13,8 +13,8 @@ class CreateUserUseCase:
             id=0,
             name=name,
             email=email,
-            created_at=datetime.utcnow(),
-            is_active=False
+            created_at=datetime.now(timezone.utc),
+            is_active=False,
         )
         self.domain_service.validate(user)
         return self.repository.create(user)
