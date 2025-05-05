@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from typing import Optional, List
 from domain.entities.user_entity import UserEntity
 from application.ports.user_repository_port import UserRepositoryPort
+from domain.exceptions.domain_exception import DomainException
 from infrastructure.database.base import Base
 from infrastructure.database.config import db
 
@@ -15,6 +16,10 @@ class UserTable(Base):
 
 class UserRepository(UserRepositoryPort):
     def create(self, user: UserEntity) -> UserEntity:
+
+        if db.session.query(UserTable).filter_by(email=user.email).first():
+            raise DomainException("Email already registered")
+
         record = UserTable(
             name=user.name,
             email=user.email,

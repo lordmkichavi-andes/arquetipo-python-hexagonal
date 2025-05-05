@@ -4,6 +4,6 @@ services:
     build: .
     container_name: flask_hexagonal_app
     ports:
-      - "5000:5000"
+      - "5010:5010"
     volumes:
       - .:/app
